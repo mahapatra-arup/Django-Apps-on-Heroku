@@ -1,2 +1,60 @@
 # Django-Apps-on-Heroku
 Deploying Python and Django Apps on Heroku
+
+- Copy the project seperately
+- Go to 'Getting Started on Heroku with Python'
+- Create an Heroku account
+- Create a virtual enviroment
+
+- Install git ( check git --version)
+- Install Heroku CLI (https://devcenter.heroku.com/articles/heroku-cli#download-and-install) 
+(# use --> heroku  or "c:\Program Files\heroku\bin\heroku.cmd" (for x64))
+
+-pip install gunicorn (Create 'Procfile' in root and add "web: gunicorn project_name.wsgi" )
+-pip install django-heroku  (# config settings-->https://pypi.org/project/django-heroku/)
+-pip freeze > requirements.txt (all time after push must be freez > )
+
+-heroku login  (## and login from browser)
+-heroku create heroku_app_name (# create new app in hiroku)
+
+-git init
+-git add -A
+-git commit -m "heroku02"
+-git push heroku master
+
+#==========db check(postgresql)==============
+-heroku addons
+-heroku addons:create heroku-postgresql:hobby-dev(plan)
+-heroku pg
+
+(####
+Remove all DbConnection and use This -->
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(default='postgres://hpvsebvnuvsezm:.........')
+Ref : https://github.com/jacobian/dj-database-url
+######)
+
+#heroku run python manage.py collectstatic --dry-run --noinput <or> heroku run python manage.py collectstatic --noinput
+-heroku run python manage.py makemigrations
+-heroku run python manage.py migrate
+-heroku open
+
+(##after push must be freez > ) && (# Must be check "wsgi.py" file for Multiple setting to currect setting file name define ex:os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'pytube.settings.development') )
+
+#########  optional   ================================>
+1. How do I delete/destroy an app on Heroku ?
+=> heroku apps:destroy heroku_app_name
+----------------------------------------------
+2. How to create secreat key  ?
+=> >>python
+  >>> import secrets
+  >>> secrets.token_hex(24)
+
+
+
+>>Tutorial
+ref: https://www.youtube.com/watch?v=MoX36izzEWY
+     
+
+
+
